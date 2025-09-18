@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Probabilidades MLE - {{ n_valor }}-gramas</title>
+    <style>
+        table { border-collapse: collapse; margin: 20px 0; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; position: sticky; top: 0; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section { margin-bottom: 40px; }
+        .stats { background-color: #f8f9fa; padding: 15px; border-radius: 5px; }
+        .back-button { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-button">
+            <a href="{% url 'lista_textos' %}" style="text-decoration: none; color: #007bff;">← Volver a la lista</a>
+        </div>
+
+        <h1>Probabilidades Condicionales (MLE) - {{ n_valor }}-gramas</h1>
+        <h2>Texto: {{ texto.titulo }}</h2>
+        
+        <div class="stats">
+            <h3>Estadísticas</h3>
+            <p><strong>Sin fronteras:</strong> {{ resultados_sin|length }} {{ n_valor }}-gramas únicos</p>
+            <p><strong>Con fronteras:</strong> {{ resultados_con|length }} {{ n_valor }}-gramas únicos</p>
+            <p><strong>Valor de n:</strong> {{ n_valor }}</p>
+        </div>
+
+        <div class="section">
+            <h3>Sin fronteras de oración</h3>
+            <table>
+                <tr>
+                    <th>{{ n_valor }}-grama</th>
+                    <th>Frecuencia</th>
+                    <th>Probabilidad P(w|contexto)</th>
+                </tr>
+                {% for item in resultados_sin %}
+                <tr>
+                    <td>{{ item.gram }}</td>
+                    <td>{{ item.frecuencia }}</td>
+                    <td>{{ item.probabilidad|floatformat:6 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>Con fronteras de oración (&lt;s&gt; y &lt;/s&gt;)</h3>
+            <table>
+                <tr>
+                    <th>{{ n_valor }}-grama</th>
+                    <th>Frecuencia</th>
+                    <th>Probabilidad P(w|contexto)</th>
+                </tr>
+                {% for item in resultados_con %}
+                <tr>
+                    <td>{{ item.gram }}</td>
+                    <td>{{ item.frecuencia }}</td>
+                    <td>{{ item.probabilidad|floatformat:6 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>Comparación y Análisis</h3>
+            <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px;">
+                <h4>¿Para qué sirven las fronteras de oración?</h4>
+                <p>Las fronteras &lt;s&gt; y &lt;/s&gt; permiten:</p>
+                <ul>
+                    <li>Modelar inicios y finales de oraciones de manera realista</li>
+                    <li>Evitar que palabras de diferentes oraciones se consideren contextos válidos</li>
+                    <li>Mejorar la calidad del modelo de lenguaje</li>
+                    <li>Calcular probabilidades de inicio/fin de oración</li>
+                </ul>
+                
+                <h4>Diferencias observadas:</h4>
+                <p>Se encontraron {{ resultados_con|length }} {{ n_valor }}-gramas con fronteras vs 
+                   {{ resultados_sin|length }} sin fronteras. Las fronteras añaden contextos específicos 
+                   de inicio y fin de oración que mejoran el modelo lingüístico.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

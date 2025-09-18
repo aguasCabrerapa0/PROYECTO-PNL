@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="file"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Subir archivo de texto</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_titulo">Título:</label>
+            {{ form.titulo }}
+            {% if form.titulo.help_text %}
+                <div class="help-text">{{ form.titulo.help_text }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_archivo">Archivo:</label>
+            {{ form.archivo }}
+            {% if form.archivo.help_text %}
+                <div class="help-text">{{ form.archivo.help_text }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_tipo_ngram">Tipo de n-grama:</label>
+            {{ form.tipo_ngram }}
+            {% if form.tipo_ngram.help_text %}
+                <div class="help-text">{{ form.tipo_ngram.help_text }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <div class="checkbox-group">
+                {{ form.calcular_probabilidades }}
+                <label for="id_calcular_probabilidades" style="display: inline; font-weight: normal;">
+                    Calcular probabilidades MLE
+                </label>
+            </div>
+            {% if form.calcular_probabilidades.help_text %}
+                <div class="help-text">{{ form.calcular_probabilidades.help_text }}</div>
+            {% endif %}
+        </div>
+        
+        <button type="submit">Subir y Analizar</button>
+    </form>
+    <a href="{% url 'lista_textos' %}">Volver a la lista</a>
+</body>
+</html>

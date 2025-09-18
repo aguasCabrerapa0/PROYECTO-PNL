@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de textos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .texto-container {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .histograma img {
+            max-width: 700px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .tokens {
+            color: #555;
+        }
+        a.button {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 10px;
+        }
+        a.button.mle {
+            background: #28a745;
+        }
+        a.button.mle:hover {
+            background: #218838;
+        }
+        a.button:hover {
+            background: #0056b3;
+        }
+        .actions {
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Textos subidos</h1>
+
+    <div style="text-align:center;">
+        <a href="{% url 'subir_texto' %}" class="button">Subir nuevo texto</a>
+    </div>
+
+    {% if textos %}
+        {% for texto in textos %}
+            <div class="texto-container">
+                <h2>{{ texto.titulo }}</h2>
+                <p><strong>Subido:</strong> {{ texto.fecha_subida }}</p>
+                <p><strong>Tipo de n-grama:</strong> {{ texto.tipo_ngram }}</p>
+                <p><strong>Probabilidades MLE:</strong> {{ texto.calcular_probabilidades|yesno:"Sí,No" }}</p>
+
+                <div class="actions">
+                    <a href="{% url 'ngram_mle' texto.id %}" class="button mle">
+                        Ver Probabilidades MLE
+                    </a>
+                </div>
+
+                {% if texto.tokens_json %}
+                    <p class="tokens"><strong>Tokens (muestra):</strong>
+                        {{ texto.tokens_json|slice:":50"|join:", " }}
+                    </p>
+                {% endif %}
+
+                <h3>Frecuencias</h3>
+                <ul>
+                    {% for palabra in texto.palabras.all|slice:":20" %}
+                        <li>{{ palabra.contenido }}: {{ palabra.frecuencia }}</li>
+                    {% endfor %}
+                </ul>
+
+                {% if texto.nube_imagen %}
+                    <div class="histograma">
+                        <h4>Histograma de frecuencias</h4>
+                        <img src="{{ texto.nube_imagen.url }}"
+                             alt="Histograma de {{ texto.titulo }}">
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align:center;">No hay textos todavía.</p>
+    {% endif %}
+</body>
+</html>
