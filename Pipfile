@@ -4,10 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+<<<<<<< HEAD
 django = "<5.3,>=4.2"
 pillow = ">=10.0"
 wordcloud = ">=1.9.3"
 nltk = "*"
+=======
+django = "*"
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc
 
 [dev-packages]
 

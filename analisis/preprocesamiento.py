@@ -23,6 +23,7 @@ def clean_and_filter(text: str):
 
 def frequencies(tokens):
     return Counter(tokens)
+<<<<<<< HEAD
 
 
 def ngram_frequencies(tokens, n=2):
@@ -35,3 +36,5 @@ def ngram_frequencies(tokens, n=2):
     ngrams = zip(*[tokens[i:] for i in range(n)])
     joined = [' '.join(gram) for gram in ngrams]
     return Counter(joined)
+=======
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc

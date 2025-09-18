@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -52,10 +53,18 @@
             margin: 15px 0;
         }
     </style>
+=======
+<!-- analisis/templates/analisis/lista.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de textos</title>
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc
 </head>
 <body>
     <h1>Textos subidos</h1>
 
+<<<<<<< HEAD
     <div style="text-align:center;">
         <a href="{% url 'subir_texto' %}" class="button">Subir nuevo texto</a>
     </div>
@@ -101,3 +110,44 @@
     {% endif %}
 </body>
 </html>
+=======
+    {% if textos %}
+        <ul>
+            {% for texto in textos %}
+                <li>{{ texto }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay textos todavía.</p>
+    {% endif %}
+
+    <a href="{% url 'subir_texto' %}">Subir nuevo texto</a>
+
+    <h2>Textos subidos</h2>
+{% for texto in textos %}
+    <h3>{{ texto.titulo }}</h3>
+    <ul>
+        {% for palabra in texto.palabras.all %}
+            <li>{{ palabra.contenido }}: {{ palabra.frecuencia }}</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    {% if texto.tokens_json %}
+        <p><strong>Tokens (muestra):</strong>
+            {{ texto.tokens_json|slice:":50"|join:", " }}
+        </p>
+    {% endif %}
+    {% if texto.nube_imagen %}
+        <div>
+            <img src="{{ texto.nube_imagen.url }}" alt="Nube de palabras de {{ texto.titulo }}" style="max-width: 600px; height: auto;">
+        </div>
+    {% endif %}
+    
+{% empty %}
+    <p>No hay textos todavía.</p>
+{% endfor %}
+
+</body>
+</html>
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc

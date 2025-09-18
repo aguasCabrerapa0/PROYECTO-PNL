@@ -1,23 +1,34 @@
 from django.db import models
 
+<<<<<<< HEAD
+=======
+# Create your models here.
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc
 class TextoAnalizado(models.Model):
     tokens_json = models.JSONField(default=list, blank=True)
     nube_imagen = models.ImageField(upload_to='wordclouds/', null=True, blank=True)
     titulo = models.CharField(max_length=200)
     archivo = models.FileField(upload_to='textos/')
     fecha_subida = models.DateTimeField(auto_now_add=True)
+<<<<<<< HEAD
     tipo_ngram = models.IntegerField(default=2)  # Nuevo campo
     calcular_probabilidades = models.BooleanField(default=False)  # Nuevo campo
+=======
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc
 
     def __str__(self):
         return self.titulo
 
+<<<<<<< HEAD
     def save(self, *args, **kwargs):
         # Leer el contenido del archivo al guardar
         if self.archivo:
             self.archivo.seek(0)  # Asegurarse de estar al inicio
             self.contenido = self.archivo.read().decode('utf-8', errors='ignore')
         super().save(*args, **kwargs)
+=======
+
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc
 
 class Palabra(models.Model):
     texto = models.ForeignKey(TextoAnalizado, on_delete=models.CASCADE, related_name='palabras')

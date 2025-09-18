@@ -2,6 +2,7 @@ from django import forms
 from .models import TextoAnalizado
 
 class TextoAnalizadoForm(forms.ModelForm):
+<<<<<<< HEAD
     # Agregar campo para seleccionar n-grama
     TIPO_NGRAM_CHOICES = [
         (1, 'Unigramas (1-grama)'),
@@ -29,3 +30,9 @@ class TextoAnalizadoForm(forms.ModelForm):
     class Meta:
         model = TextoAnalizado
         fields = ['titulo', 'archivo', 'tipo_ngram', 'calcular_probabilidades']
+=======
+    class Meta:
+        model = TextoAnalizado
+        fields = ['titulo', 'archivo']
+        
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -71,11 +72,17 @@
             text-decoration: underline;
         }
     </style>
+=======
+<html>
+<head>
+    <title>Subir texto</title>
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc
 </head>
 <body>
     <h1>Subir archivo de texto</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+<<<<<<< HEAD
         
         <div class="form-group">
             <label for="id_titulo">Título:</label>
@@ -118,3 +125,11 @@
     <a href="{% url 'lista_textos' %}">Volver a la lista</a>
 </body>
 </html>
+=======
+        {{ form.as_p }}
+        <button type="submit">Subir</button>
+    </form>
+    <a href="{% url 'lista_textos' %}">Volver a la lista</a>
+</body>
+</html>
+>>>>>>> 76182a81822a6aa7a9c45c67f5f91222cbee9ddc
